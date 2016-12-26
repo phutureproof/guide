@@ -81,7 +81,7 @@ if (strtolower($_SERVER['REQUEST_METHOD']) === 'post') {
 			$db = new \PDO('mysql:host=localhost;dbname=angular;charset=UTF8', 'root', '');
 
 			// handle updates
-			if (isset($post['table'], $post['columns'])) {
+			if (isset($post['table'], $post['columns'], $post['id'])) {
 
 				$table = $post['table'];
 				$id = isset($post['id']) ? $post['id'] : null;
