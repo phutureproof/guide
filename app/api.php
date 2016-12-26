@@ -6,7 +6,7 @@ $output['status'] = 'Security lock down, no token present in request.';
 
 // handle tokens
 if (isset($_SERVER['REQUEST_METHOD'])) {
-	$db = new \PDO('mysql:host=localthost;dbname=angular;charset=UTF8', 'root', '');
+	$db = new \PDO('mysql:host=localhost;dbname=angular;charset=UTF8', 'root', '');
 	// validate get token
 	if (strtolower($_SERVER['REQUEST_METHOD']) === 'get') {
 		// no token
@@ -29,19 +29,19 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
 	// validate post token
 	if (strtolower($_SERVER['REQUEST_METHOD']) === 'post') {
 		parse_str(file_get_contents('php://input'), $_POST);
-		// no toekn
+		// no token
 		if (!isset($_POST['token'])) {
 			$output = ['status' => 'security lock down, no token present in request.'];
-		}
-	} else {
-		// token set but invalid
-		if (isset($_POST['token']) && $_POST['token'] !== $_SESSION['token']) {
-			$output = ['status' => 'security lock down, bad token value present in request.'];
 		} else {
-			// valid token
-			if (isset($_POST['token']) && $_POST['token'] === $_SESSION['token']) {
-				$output['status'] = 'success';
-				$tokenStatus = true;
+			// token set but invalid
+			if (isset($_POST['token']) && $_POST['token'] !== $_SESSION['token']) {
+				$output = ['status' => 'security lock down, bad token value present in request.'];
+			} else {
+				// valid token
+				if (isset($_POST['token']) && $_POST['token'] === $_SESSION['token']) {
+					$output['status'] = 'success';
+					$tokenStatus = true;
+				}
 			}
 		}
 	}

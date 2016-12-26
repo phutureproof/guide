@@ -44,25 +44,8 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-6">
-					<guide-filter-list data-table="roles"></guide-filter-list>
-				</div>
-				<div class="col-md-6">
-					<guide-filter-list data-table="permissions"></guide-filter-list>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					<guide-filter-list data-table="roles_users"></guide-filter-list>
-				</div>
-				<div class="col-md-3">
-					<guide-filter-list data-table="roles"></guide-filter-list>
-				</div>
-				<div class="col-md-3">
-					<guide-filter-list data-table="permissions"></guide-filter-list>
-				</div>
-				<div class="col-md-3">
-					<guide-filter-list data-table="roles"></guide-filter-list>
+				<div class="col-md-12">
+					<guide-filter-list data-table="test_table"></guide-filter-list>
 				</div>
 			</div>
 		
@@ -71,17 +54,4 @@
 			<div class="alerts-container"></div>
 		</div>
 	</div>
-</div>
-
-<div class="container-fluid" data-ng-if="$ctrl.login.done">
-	<div class="row">
-		<div class="col-md-10">
-			
-		</div>
-		<div class="col-md-2">
-			<div class="alerts-container"></div>
-		</div>
-	</div>
-
-
 </div>
