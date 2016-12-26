@@ -1,5 +1,7 @@
 !(function($, angular, undefined) {
 
+    'use strict';
+
     angular.module('guide', []);
 
     angular.getToken = function () {
@@ -12,7 +14,7 @@
 
     $(function(){
         $(document).on('click', '.modal-confirm', function(event){
-            window.htmlService.showAlert('Confirming modal.');
+            window.htmlService.showAlert('Collecting form data.');
             var formData = window.htmlService.getModalFormData();
             window.apiService.updateRecord(formData).then(function(result){
                 window.htmlService.showAlert(result.message, result.status);
@@ -27,7 +29,7 @@
         });
 
         $(document).on('click', '.modal-close', function(event){
-            window.htmlService.showAlert('Modal window closing.');
+            window.htmlService.showAlert('Abandoning form.');
         });
     });
 

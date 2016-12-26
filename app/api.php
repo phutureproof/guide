@@ -1,12 +1,13 @@
 <?php
 
+require_once('./api.config.php');
 session_start();
 $tokenStatus = false;
 $output['status'] = 'Security lock down, no token present in request.';
 
 // handle tokens
 if (isset($_SERVER['REQUEST_METHOD'])) {
-	$db = new \PDO('mysql:host=localhost;dbname=angular;charset=UTF8', 'root', '');
+	$db = new \PDO("{$apiConfig['driver']}:host={$apiConfig['host']};dbname={$apiConfig['dbname']};charset={$apiConfig['charset']}", $apiConfig['user'], $apiConfig['pass']);
 	// validate get token
 	if (strtolower($_SERVER['REQUEST_METHOD']) === 'get') {
 		// no token
@@ -83,19 +84,16 @@ if (strtolower($_SERVER['REQUEST_METHOD']) === 'get') {
 
 		$columns = '*';
 
-		if (isset($shown) && !empty($shown)) {
-			$columns = $shown;
+		if (isset($_GET['columns']) && !empty($_GET['columns']) && $_GET['columns'] !== 'null') {
+			$columns = 'id, ' . $_GET['columns'];
 		}
 
 		$sql = "SELECT {$columns} FROM {$_GET['table']}";
-		$result = $db->prepare($sql);
-		$result->execute([]);
-		$output['data'] = $result->fetchAll(\PDO::FETCH_OBJ);
-		$sql = "SHOW FULL COLUMNS FROM {$_GET['table']}";
-		$result = $db->prepare($sql);
-		$result->execute([]);
-		$output['columns'] = $result->fetchAll(\PDO::FETCH_OBJ);
 
+		$result = $db->prepare($sql);
+		$result->execute([]);
+
+		$output['data'] = $result->fetchAll(\PDO::FETCH_OBJ);
 	}
 
 

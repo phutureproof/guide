@@ -1,5 +1,7 @@
 !(function ($, angular, undefined) {
 
+    'use strict';
+
     angular.module('guide').factory('htmlService', function (apiService) {
 
         // quick dirty config object
@@ -17,7 +19,7 @@
         var timer;
 
         // encapsulate
-        returnObject = {
+        var returnObject = {
 
             // somewhere to store our alert messages
             alerts: alerts,
@@ -29,7 +31,7 @@
 
 
             // create the html neccessary to update an article
-            getEditForm: function (article, table) {
+            getEditForm: function (article, table, config) {
                 $('.modal').find('.modal-title').html('Editing ' + table + ': ' + article.id);
                 $('.modal').find('.modal-body').empty().append('<form />');
                 var form = $('.modal').find('.modal-body form');
@@ -40,7 +42,14 @@
                         form.append('<input name="id" value="' + article[i] + '" type="hidden" />');
                     }
                     if (['$$hashKey', 'id'].indexOf(i) === -1) {
-                        form.append('<div class="form-group"><label>' + i + '</label><input class="form-control" name="columns[' + i + ']" value="' + article[i] + '" type="text" /></div>');
+                        console.log(config);
+                        if(config.shown){
+                            if(config.shown.indexOf(i) >= 0) {
+                                form.append('<div class="form-group"><label>' + i + '</label><input class="form-control" name="columns[' + i + ']" value="' + article[i] + '" type="text" /></div>');
+                            }
+                        } else {
+                            form.append('<div class="form-group"><label>' + i + '</label><input class="form-control" name="columns[' + i + ']" value="' + article[i] + '" type="text" /></div>');
+                        }
                     }
                 }
                 $('.modal').modal('show');
