@@ -5,7 +5,7 @@
 	<div class="panel-body">
 		<div class="form-group">
 			<label for="">Filter:</label>
-			<input type="text" class="form-control" data-ng-model="search" data-ng-model-options="{debounce: 500}">
+			<input type="text" class="form-control" data-ng-model="search" data-ng-model-options="{debounce: 250}">
 		</div>
 		<div class="table-responsive">
 			<table class="table table-condensed table-striped table-bordered table-hover">

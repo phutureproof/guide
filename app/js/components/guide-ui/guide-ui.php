@@ -44,8 +44,14 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
-					<guide-filter-list data-table="test_table"></guide-filter-list>
+				<div class="col-md-4">
+					<guide-filter-list data-table="roles"></guide-filter-list>
+				</div>
+				<div class="col-md-4">
+					<guide-filter-list data-table="permissions"></guide-filter-list>
+				</div>
+				<div class="col-md-4">
+					<guide-filter-list data-table="permissions_roles"></guide-filter-list>
 				</div>
 			</div>
 		
