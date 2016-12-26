@@ -1,4 +1,4 @@
-!(function(angular, undefined) {
+!(function($, angular, undefined) {
 
     angular.module('guide', []);
 
@@ -21,9 +21,14 @@
             });
         });
 
+        $(document).on('submit', '.modal-content form', function(event){
+            event.preventDefault();
+            $(this).parents('.modal-content').find('.modal-confirm').trigger('click');
+        });
+
         $(document).on('click', '.modal-close', function(event){
             window.htmlService.showAlert('Modal window closing.');
         });
     });
 
-})(angular);
+})(jQuery, angular);

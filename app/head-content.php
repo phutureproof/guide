@@ -31,9 +31,9 @@
 		<script src="js/guide.js"></script>
 
 		<!-- custom services -->
-		<script src="js/services/service.api.js"></script>
-		<script src="js/services/service.html.js"></script>
-		<script src="js/services/service.cookie.js"></script>
+		<script src="js/services/api.js"></script>
+		<script src="js/services/html.js"></script>
+		<script src="js/services/cookie.js"></script>
 
 		<!-- custom components -->
 		<script src="js/components/filter-list/filter.list.js"></script>

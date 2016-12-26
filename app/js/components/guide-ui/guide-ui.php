@@ -1,6 +1,6 @@
-<div class="container-fluid" data-ng-if="!$ctrl.login.done">
+<div class="container-fluid">
 	<div class="row">
-		<div class="col-md-9">
+		<div class="col-md-9" data-ng-if="!$ctrl.login.done">
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<p class="lead">Please login to continue...</p>
@@ -23,15 +23,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3">
-			<div class="alerts-container"></div>
-		</div>
-	</div>
-</div>
-
-<div class="container-fluid" data-ng-if="$ctrl.login.done">
-	<div class="row">
-		<div class="col-md-10">
+		<div class="col-md-9" data-ng-if="$ctrl.login.done">
 			<div class="row">
 				<div class="col-md-12">
 					<h1>Welcome {{$ctrl.login.username}}</h1>
@@ -73,6 +65,18 @@
 					<guide-filter-list data-table="roles"></guide-filter-list>
 				</div>
 			</div>
+		
+		</div>
+		<div class="col-md-3">
+			<div class="alerts-container"></div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid" data-ng-if="$ctrl.login.done">
+	<div class="row">
+		<div class="col-md-10">
+			
 		</div>
 		<div class="col-md-2">
 			<div class="alerts-container"></div>

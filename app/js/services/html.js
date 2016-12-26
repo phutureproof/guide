@@ -6,7 +6,7 @@
         // could be abstracted
         var config = {
             listenerFunctionRepeatTimer:     99,
-            listenerAlertDisplayLengthTimer: 1999,
+            listenerAlertDisplayLengthTimer: 5000,
             jqAnimationSpeed:                250
         };
 
