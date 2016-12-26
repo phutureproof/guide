@@ -6,7 +6,7 @@ $output['status'] = 'Security lock down, no token present in request.';
 
 // handle tokens
 if (isset($_SERVER['REQUEST_METHOD'])) {
-	$db = new \PDO('mysql:host=localhost;dbname=phuturep_angular;charset=UTF8', 'phuturep_angular', '!!$AngularAccess');
+	$db = new \PDO('mysql:host=localhost;dbname=angular;charset=UTF8', 'root', '');
 	// validate get token
 	if (strtolower($_SERVER['REQUEST_METHOD']) === 'get') {
 		// no token
