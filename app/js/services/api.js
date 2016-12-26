@@ -62,7 +62,6 @@
             },
 
             getTableData: function (table, columns) {
-                console.log(columns);
                 // return a promise
                 return this.makeGetCall('table=' + table + '&columns=' + columns)
                     .then(function (result) {
