@@ -1,0 +1,31 @@
+body {
+    padding-top: 20px;
+}
+
+.alerts-container {
+    overflow-y: auto;
+}
+
+.alerts-container.with-overflow {
+    overflow-y: scroll;
+    height: 105px !important;
+}
+
+.options-td {
+    width: 5%;
+    white-space: nowrap;
+}
+
+.modal-header {
+    background-image: linear-gradient(to bottom, #fff 5px, #ccc 100%);
+    background-clip: border-box;
+}
+.panel-heading,
+.modal-title {
+    font-weight: 400;
+    text-transform: capitalize;
+}
+
+[data-ng-click]:hover {
+    cursor: pointer;
+}
