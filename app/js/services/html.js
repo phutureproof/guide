@@ -33,16 +33,17 @@
             // create the html neccessary to update an article
             getEditForm: function (article, table, config) {
                 $('.modal').find('.modal-title').html('Editing ' + table + ': ' + article.id);
-                $('.modal').find('.modal-body').empty().append('<form />');
+                $('.modal').find('.modal-body').empty().append('<form action="" method="post" accept-charset="utf-8" />');
                 var form = $('.modal').find('.modal-body form');
                 for (var i in article) {
+
                     if (i === 'id') {
                         form.append('<input name="token" value="' + apiService.getToken() + '" type="hidden" />');
                         form.append('<input name="table" value="' + table + '" type="hidden" />');
                         form.append('<input name="id" value="' + article[i] + '" type="hidden" />');
                     }
+
                     if (['$$hashKey', 'id'].indexOf(i) === -1) {
-                        console.log(config);
                         if(config.shown){
                             if(config.shown.indexOf(i) >= 0) {
                                 form.append('<div class="form-group"><label>' + i + '</label><input class="form-control" name="columns[' + i + ']" value="' + article[i] + '" type="text" /></div>');

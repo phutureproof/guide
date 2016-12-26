@@ -40,12 +40,12 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<guide-filter-list data-table="users"></guide-filter-list>
+					<guide-filter-list data-table="users" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<guide-filter-list data-table="users" data-shown="email, username"></guide-filter-list>
+					<guide-filter-list data-table="users" data-shown="email, username" />
 				</div>
 			</div>
 		</div>
