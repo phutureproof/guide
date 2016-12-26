@@ -1,5 +1,7 @@
 !(function (angular, undefined) {
 
+    'use strict';
+
     angular.module('guide').component('guideUi', {
         templateUrl: angular.getComponentTemplate('guide-ui'),
         controller:  function GuideUiController(apiService, htmlService, cookieService) {
@@ -43,6 +45,7 @@
 
             this.doLogout = function () {
                 that.login = that.getDefaultData();
+                htmlService.showAlert('Logging you out.', 'danger');
             };
 
         }

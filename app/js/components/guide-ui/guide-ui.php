@@ -45,12 +45,11 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<guide-filter-list data-table="test_table"></guide-filter-list>
+					<guide-filter-list data-table="users" data-shown="email, username"></guide-filter-list>
 				</div>
 			</div>
-		
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-3" >
 			<div class="alerts-container"></div>
 		</div>
 	</div>

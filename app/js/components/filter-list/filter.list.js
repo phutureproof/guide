@@ -1,8 +1,12 @@
 !(function (angular, undefined) {
 
+    'use strict';
+
     angular.module('guide').component('guideFilterList', {
         templateUrl: angular.getComponentTemplate ('filter-list'),
         controller:  function FilterListController($http, $element, apiService, htmlService) {
+
+            this.data = [];
 
             this.getTable = function () {
                 return $element[0].dataset.table || null;
@@ -19,9 +23,26 @@
             var that = this;
 
             this.refresh = function () {
+                that.data = [];
                 if (that.getTable()) {
-                    apiService.getTableData(that.getTable()).then(function (result) {
+                    var columns = that.shownData() ? that.shownData() : null;
+                    apiService.getTableData(that.getTable(), columns).then(function (result) {
                         that.data = result.data;
+                        if(columns) {
+                            var newData = [];
+                            angular.forEach(that.data, function(article, i){
+
+                                var newArticle = {};
+                                for(var key in article) {
+                                    if(columns.indexOf(key) >= 0 || key === 'id') {
+                                        newArticle[key] = article[key];
+                                    }
+                                }
+
+                                newData.push(newArticle);
+                            });
+                            that.data = newData;
+                        }
                     });
                 }
             };
@@ -41,8 +62,11 @@
             };
 
             this.getEditForm = function (article) {
-                htmlService.showAlert('Loading data into form...');
-                htmlService.getEditForm(article, this.getTable());
+                var config = {
+                    shown: this.shownData(),
+                    hidden: this.hiddenData()
+                };
+                htmlService.getEditForm(article, this.getTable(), config);
                 htmlService.showAlert('Opening form.');
                 window.activeController = this;
             };
@@ -56,7 +80,13 @@
                 if (this.data && this.data.length) {
                     for (var i in this.data[0]) {
                         if (i !== '$$hashKey') {
-                            headers.push(i);
+                            if(that.shownData()) {
+                                if(that.shownData().indexOf(i) >= 0 || i === 'id') {
+                                    headers.push(i);
+                                }
+                            } else {
+                                headers.push(i);
+                            }
                         }
                     }
                     headers.push('options');

@@ -5,9 +5,17 @@
 	<div class="panel-body">
 		<div class="form-group">
 			<label for="">Filter:</label>
-			<input type="text" class="form-control" data-ng-model="search" data-ng-model-options="{debounce: 500}">
+			<input type="text" class="form-control" data-ng-model="search" data-ng-model-options="{debounce: 250}">
 		</div>
-		<div class="table-responsive">
+
+		<div data-ng-if="!$ctrl.data.length">
+
+			<img src="/img/spin.gif" alt="" style="width: 40px; height: 40px;">
+			<p>Refreshing data source...</p>
+
+		</div>
+
+		<div class="table-responsive" data-ng-if="$ctrl.data.length">
 			<table class="table table-condensed table-striped table-bordered table-hover">
 				<thead>
 					<tr>
@@ -23,7 +31,7 @@
 					</tr>
 				</tbody>
 			</table>
-
 		</div>
+
 	</div>
 </div>

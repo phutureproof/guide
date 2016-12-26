@@ -20,6 +20,7 @@ body {
     background-image: linear-gradient(to bottom, #fff 5px, #ccc 100%);
     background-clip: border-box;
 }
+
 .panel-heading,
 .modal-title {
     font-weight: 400;

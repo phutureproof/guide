@@ -61,9 +61,9 @@
                     });
             },
 
-            getTableData: function (table) {
+            getTableData: function (table, columns) {
                 // return a promise
-                return this.makeGetCall('table=' + table)
+                return this.makeGetCall('table=' + table + '&columns=' + columns)
                     .then(function (result) {
                         // return the data
                         return result.data;
