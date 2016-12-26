@@ -138,7 +138,7 @@ if (strtolower($_SERVER['REQUEST_METHOD']) === 'post') {
 			}
 		} else {
 
-			$output['status'] = 'caution';
+			$output['status'] = 'warning';
 			$output['message'] = 'Couldn&apos;t update record!';
 			$output['sql'] = $sql;
 			$output['error-message'] = $result->errorInfo();
