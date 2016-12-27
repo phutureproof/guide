@@ -27,6 +27,11 @@ body {
     text-transform: capitalize;
 }
 
-[data-ng-click]:hover {
+[data-ng-click]:hover,
+.panel-heading {
     cursor: pointer;
+}
+
+.panel-heading > button.pull-right {
+    margin-top: -6px;
 }

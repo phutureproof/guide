@@ -45,6 +45,7 @@
                         }
                     });
                 }
+                htmlService.doBindings();
             };
 
             this.getDisplayText = function (article) {
@@ -71,7 +72,7 @@
                 window.activeController = this;
             };
 
-            this.getCreateForm = function(article) {
+            this.getCreateForm = function() {
                 console.log(article);
             };
 
@@ -89,7 +90,7 @@
                             }
                         }
                     }
-                    headers.push('options');
+                    headers.push('');
                 }
                 return headers;
             };

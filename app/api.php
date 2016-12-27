@@ -1,6 +1,6 @@
 <?php
 
-require_once('./api.config.php');
+require_once('./../api.config.php');
 session_start();
 $tokenStatus = false;
 $output['status'] = 'Security lock down, no token present in request.';
