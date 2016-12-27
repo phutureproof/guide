@@ -1,13 +1,13 @@
 <?php
 
-require_once('./../api.config.php');
+require_once(__DIR__ . '/../app.config.php');
 session_start();
 $tokenStatus = false;
 $output['status'] = 'Security lock down, no token present in request.';
 
 // handle tokens
 if (isset($_SERVER['REQUEST_METHOD'])) {
-	$db = new \PDO("{$apiConfig['driver']}:host={$apiConfig['host']};dbname={$apiConfig['dbname']};charset={$apiConfig['charset']}", $apiConfig['user'], $apiConfig['pass']);
+	$db = new \PDO("{$appConfig['database']['default']['driver']}:host={$appConfig['database']['default']['host']};dbname={$appConfig['database']['default']['dbname']};charset={$appConfig['database']['default']['charset']}", $appConfig['database']['default']['user'], $appConfig['database']['default']['pass']);
 	// validate get token
 	if (strtolower($_SERVER['REQUEST_METHOD']) === 'get') {
 		// no token
@@ -93,7 +93,12 @@ if (strtolower($_SERVER['REQUEST_METHOD']) === 'get') {
 		$result = $db->prepare($sql);
 		$result->execute([]);
 
-		$output['data'] = $result->fetchAll(\PDO::FETCH_OBJ);
+		$output['data'] = $result->fetchAll(\PDO::FETCH_ASSOC);
+
+		$sql = "SHOW FULL COLUMNS FROM {$_GET['table']}";
+		$result = $db->prepare($sql);
+		$result->execute([]);
+		$output['columns'] = $result->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
 
@@ -104,7 +109,26 @@ if (strtolower($_SERVER['REQUEST_METHOD']) === 'get') {
 if (strtolower($_SERVER['REQUEST_METHOD']) === 'post') {
 
 	// handle updates
-	if (isset($_POST['table'], $_POST['columns'], $_POST['id'])) {
+	if (isset($_POST['table'], $_POST['columns'], $_POST['id']) && $_POST['id'] !== 'new') {
+
+		// handle delete
+		if(isset($_POST['columns']['delete']) && $_POST['columns']['delete'] !== '') {
+			$sql = "DELETE FROM {$_POST['table']} WHERE id = ?";
+			$result = $db->prepare($sql);
+			$result->execute([$_POST['id']]);
+			if($result->rowCount()) {
+				$output['status'] = 'success';
+				$output['message'] = 'Deleted record.';
+			} else {
+				$output['status'] = 'warning';
+				$output['message'] = 'Couldn&apos;t delete record.';
+				$output['sql'] = $sql;
+				$output['error-message'] = $result->errorInfo();
+			}
+
+			header("Content-Type: application/json");
+			exit(json_encode($output));
+		}
 
 		$table = $_POST['table'];
 		$id = isset($_POST['id']) ? $_POST['id'] : null;
@@ -150,10 +174,9 @@ if (strtolower($_SERVER['REQUEST_METHOD']) === 'post') {
 	}
 
 	// handle inserts
-	if (isset($_POST['table'], $_POST['columns']) && !isset($_POST['id'])) {
+	if (isset($_POST['table'], $_POST['columns'], $_POST['id']) && $_POST['id'] === 'new') {
 
 		$table = $_POST['table'];
-		$id = $_POST['id'];
 
 		$columns = $values = $updates = [];
 
@@ -169,7 +192,7 @@ if (strtolower($_SERVER['REQUEST_METHOD']) === 'post') {
 		$sql = "INSERT INTO `{$table}` ({$columns}) VALUES ({$values})";
 		$result = $db->prepare($sql);
 
-		if ($result->execute(array_merge(array_values($_POST['columns']), array_values($_POST['columns'])))) {
+		if ($result->execute(array_values($_POST['columns']))) {
 
 			$output['status'] = 'success';
 

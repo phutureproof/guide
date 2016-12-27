@@ -27,11 +27,20 @@ body {
     text-transform: capitalize;
 }
 
-[data-ng-click]:hover,
-.panel-heading {
+.pointer,
+[data-ng-click],
+.panel-heading,
+.clear-filter {
     cursor: pointer;
 }
 
 .panel-heading > button.pull-right {
     margin-top: -6px;
+}
+
+@media screen and (max-width: 400px) {
+    table th:not(:first-of-type):not(:nth-of-type(2)):not(:last-of-type),
+    table td:not(:first-of-type):not(:nth-of-type(2)):not(:last-of-type) {
+        display: none;
+    }
 }

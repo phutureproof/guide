@@ -1,3 +1,20 @@
+<?php
+
+require_once(__DIR__ . '/../../../../app.config.php');
+
+$db = new \PDO("{$appConfig['database']['default']['driver']}:host={$appConfig['database']['default']['host']};dbname={$appConfig['database']['default']['dbname']};charset={$appConfig['database']['default']['charset']}", $appConfig['database']['default']['user'], $appConfig['database']['default']['pass']);
+
+$sql = "SHOW TABLES FROM {$appConfig['database']['default']['dbname']}";
+$result = $db->prepare($sql);
+$result->execute([]);
+
+$tables = [];
+$column = "Tables_in_{$appConfig['database']['default']['dbname']}";
+
+foreach($result->fetchAll(\PDO::FETCH_OBJ) as $row) {
+    $tables[] = $row->$column;
+}
+?>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-9" data-ng-if="!$ctrl.login.done">
@@ -29,30 +46,29 @@
 					<h1>Welcome {{$ctrl.login.username}}</h1>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<ul class="nav nav-pills">
-						<li data-ng-click="$ctrl.doLogout()">
-							<a><span class="glyphicon glyphicon-lock"></span> Logout</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<guide-filter-list data-table="users" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<guide-filter-list data-table="roles" />
-				</div>
-			</div>
+
+
+            <?php foreach($tables as $table): ?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <guide-filter-list data-table="<?= $table; ?>" />
+                    </div>
+                </div>
+            <?php endforeach; ?>
+
+
             <div class="row">
                 <div class="col-md-12">
-                    <guide-filter-list data-table="permissions" />
+                    <ul class="nav nav-pills">
+                        <li data-ng-click="$ctrl.doLogout()">
+                            <a><span class="glyphicon glyphicon-lock"></span> Logout</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
+
+
+
 		</div>
 		<div class="col-md-3" >
 			<div class="alerts-container"></div>

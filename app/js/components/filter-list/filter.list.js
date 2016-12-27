@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('guide').component('guideFilterList', {
-        templateUrl: angular.getComponentTemplate ('filter-list'),
+        templateUrl: angular.getComponentTemplate('filter-list'),
         controller:  function FilterListController($http, $element, apiService, htmlService) {
 
             this.data = [];
@@ -27,14 +27,15 @@
                 if (that.getTable()) {
                     var columns = that.shownData() ? that.shownData() : null;
                     apiService.getTableData(that.getTable(), columns).then(function (result) {
-                        that.data = result.data;
-                        if(columns) {
+                        that.data    = result.data;
+                        that.columns = result.columns;
+                        if (columns) {
                             var newData = [];
-                            angular.forEach(that.data, function(article, i){
+                            angular.forEach(that.data, function (article, i) {
 
                                 var newArticle = {};
-                                for(var key in article) {
-                                    if(columns.indexOf(key) >= 0 || key === 'id') {
+                                for (var key in article) {
+                                    if (columns.indexOf(key) >= 0 || key === 'id') {
                                         newArticle[key] = article[key];
                                     }
                                 }
@@ -64,7 +65,7 @@
 
             this.getEditForm = function (article) {
                 var config = {
-                    shown: this.shownData(),
+                    shown:  this.shownData(),
                     hidden: this.hiddenData()
                 };
                 htmlService.getEditForm(article, this.getTable(), config);
@@ -72,8 +73,26 @@
                 window.activeController = this;
             };
 
-            this.getCreateForm = function() {
-                console.log(article);
+            this.getCreateForm = function () {
+                console.log(that.columns);
+                var newArticle = {};
+                for (var i in that.columns) {
+                    console.log([i, that.columns[i].Field]);
+                    if(that.columns[i].Field !== 'id') {
+                        newArticle[that.columns[i].Field] = '';
+                    } else {
+                        newArticle.id = 'new';
+                    }
+                }
+                this.getEditForm(newArticle);
+            };
+
+            this.getDeleteForm = function(article) {
+                var newArticle = {
+                    id: article.id,
+                    delete: ''
+                };
+                this.getEditForm(newArticle);
             };
 
             this.getDataHeaders = function () {
@@ -81,8 +100,8 @@
                 if (this.data && this.data.length) {
                     for (var i in this.data[0]) {
                         if (i !== '$$hashKey') {
-                            if(that.shownData()) {
-                                if(that.shownData().indexOf(i) >= 0 || i === 'id') {
+                            if (that.shownData()) {
+                                if (that.shownData().indexOf(i) >= 0 || i === 'id') {
                                     headers.push(i);
                                 }
                             } else {

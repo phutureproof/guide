@@ -33,12 +33,20 @@
         });
 
         $(document).on('click', '.panel-heading', function (event) {
-            $(this).parent().find('.panel-body').slideToggle();
+            var panel = $(this).parent().find('.panel-body');
+            if(panel.hasClass('hidden')) {
+                panel.css({display: 'none'}).removeClass('hidden');
+            }
+            panel.slideToggle();
         });
 
         $(document).on('click', '.panel-heading button.pull-right', function (event) {
             event.preventDefault();
             event.stopPropagation();
+        });
+
+        $(document).on('click', '.clear-filter', function(event) {
+            $(this).parents('div:first').find('input[data-ng-model="search"]').val('').focus().select();
         });
     });
 

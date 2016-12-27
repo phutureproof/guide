@@ -32,27 +32,40 @@
 
             // create the html neccessary to update an article
             getEditForm: function (article, table, config) {
+
+                // set modal html
                 $('.modal').find('.modal-title').html('Editing ' + table + ': ' + article.id);
                 $('.modal').find('.modal-body').empty().append('<form action="" method="post" accept-charset="utf-8" />');
+
+                // append a form to the modal
                 var form = $('.modal').find('.modal-body form');
+                // add hidden inputs
+                form.append('<input name="token" value="' + apiService.getToken() + '" type="hidden" />');
+                form.append('<input name="table" value="' + table + '" type="hidden" />');
+
+                // loop over keys in article
                 for (var i in article) {
 
                     if (i === 'id') {
-                        form.append('<input name="token" value="' + apiService.getToken() + '" type="hidden" />');
-                        form.append('<input name="table" value="' + table + '" type="hidden" />');
+
                         form.append('<input name="id" value="' + article[i] + '" type="hidden" />');
                     }
 
+                    // dodge $$hashKey and id
                     if (['$$hashKey', 'id'].indexOf(i) === -1) {
+                        // if we're using data-shown
                         if(config.shown){
+                            // if this key is shown
                             if(config.shown.indexOf(i) >= 0) {
                                 form.append('<div class="form-group"><label>' + i + '</label><input class="form-control" name="columns[' + i + ']" value="' + article[i] + '" type="text" /></div>');
                             }
+                            // or we're not using data-shown
                         } else {
                             form.append('<div class="form-group"><label>' + i + '</label><input class="form-control" name="columns[' + i + ']" value="' + article[i] + '" type="text" /></div>');
                         }
                     }
                 }
+                // show the modal
                 $('.modal').modal('show');
             },
 
@@ -136,7 +149,7 @@
 
 
             doBindings: function() {
-                $('.sortable').sortable({items: '.row'});
+                // $('.sortable').sortable({items: '.row'});
             },
 
 

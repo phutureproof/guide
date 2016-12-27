@@ -15,8 +15,9 @@
             get: function(key) {
                 return (Cookies.get(key) !== 'undefined') ? Cookies.get(key) : null;
             },
-            set: function (key, value) {
-                return Cookies.set(key, value);
+            set: function (key, value, lengthInDays) {
+                lengthInDays = lengthInDays || 7;
+                return Cookies.set(key, value, {expires: lengthInDays});
             }
         }
 

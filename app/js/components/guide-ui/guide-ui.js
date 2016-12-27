@@ -33,7 +33,6 @@
                     that.loggingIn = true;
                     htmlService.showAlert('Logging in...');
                     apiService.doLogin(that.login).then(function (result) {
-                        console.log(result);
                         if (result.login.done === true) {
                             htmlService.showAlert('Login successful, refreshing interface, welcome ' + result.login.username + ' :)', 'success');
                             if (that.login.remember) {
