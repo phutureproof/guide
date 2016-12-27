@@ -135,6 +135,11 @@
             },
 
 
+            doBindings: function() {
+                $('.sortable').sortable({items: '.row'});
+            },
+
+
             makeGlobal: function () {
                 window.htmlService = this;
             }

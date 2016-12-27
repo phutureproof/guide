@@ -8,11 +8,11 @@
 				<div class="panel-body">
 					<div class="form-group">
 						<label>Email:</label>
-						<input type="email" class="form-control" data-ng-model="$ctrl.login.email">
+						<input type="email" name="email" class="form-control" data-ng-model="$ctrl.login.email">
 					</div>
 					<div class="form-group">
 						<label>Password:</label>
-						<input type="password" class="form-control" data-ng-model="$ctrl.login.password">
+						<input type="password" name="password" class="form-control" data-ng-model="$ctrl.login.password">
 					</div>
 					<div class="form-group">
 						<label>Remember Me: <input type="checkbox" data-ng-model="$ctrl.login.remember"></label>
@@ -23,7 +23,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-9" data-ng-if="$ctrl.login.done">
+		<div class="col-md-9 sortable" data-ng-if="$ctrl.login.done">
 			<div class="row">
 				<div class="col-md-12">
 					<h1>Welcome {{$ctrl.login.username}}</h1>
@@ -45,12 +45,20 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<guide-filter-list data-table="users" data-shown="email, username" />
+					<guide-filter-list data-table="roles" />
 				</div>
 			</div>
+            <div class="row">
+                <div class="col-md-12">
+                    <guide-filter-list data-table="permissions" />
+                </div>
+            </div>
 		</div>
 		<div class="col-md-3" >
 			<div class="alerts-container"></div>
 		</div>
 	</div>
 </div>
+<script>
+
+</script>
