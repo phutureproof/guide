@@ -4,7 +4,7 @@ Angular Backend Frontend
 #Installation
 git clone https://github.com/phutureproof/guide.git
 
-or manually download the zip, extract and point your webserver document root to the app folder.
+or manually [grab the latest release](https://github.com/phutureproof/guide/releases), extract and point your webserver document root to the app folder.
 
 You will also need to run the supplied angular.sql file on your database, and tweak the values present in api.config.php to match your database provider details.
 
