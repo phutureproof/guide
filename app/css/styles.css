@@ -23,7 +23,14 @@ body {
 
 .panel-heading,
 .modal-title {
-    font-weight: 400;
+    font-weight: 300;
+    text-transform: capitalize;
+}
+
+label {
+    text-transform: capitalize;
+}
+th {
     text-transform: capitalize;
 }
 

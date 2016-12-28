@@ -8,7 +8,7 @@
         <div class="form-group">
             <label for="">Filter:</label>
             <div class="input-group">
-                <span class="input-group-addon clear-filter"><span class="glyphicon glyphicon-remove "></span></span>
+                <span class="input-group-addon" data-ng-click="search = ''"><span class="glyphicon glyphicon-remove "></span></span>
                 <input type="text" class="form-control" data-ng-model="search" data-ng-model-options="{debounce: 250}">
                 <span class="input-group-addon">{{ ($ctrl.data | filter:search).length | number}} of {{ ($ctrl.data).length | number}}</span>
             </div>
@@ -30,7 +30,7 @@
 
         <div>
             <div class="alert alert-warning" ng-if="($ctrl.data | filter:search).length >= 50">
-                <p>We have a lot of data to digest, and, have taken the liberty of hiding it.</p>
+                <p>We have a lot of data to digest, and have taken the liberty of hiding this process.</p>
                 <p>Please provide a filter to narrow the results.</p>
                 <p>Results will be shown when the amount of results is 50 or less.</p>
             </div>
@@ -41,7 +41,7 @@
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th data-ng-repeat="i in $ctrl.getDataHeaders()">{{i}}</th>
+                            <th data-ng-repeat="i in $ctrl.getDataHeaders()">{{i.replace('_', ' ')}}</th>
                         </tr>
                     </thead>
                     <tbody>
