@@ -7,6 +7,7 @@
         controller:  function FilterListController($http, $element, apiService, htmlService) {
 
             this.data = [];
+            this.columns = [];
 
             this.getTable = function () {
                 return $element[0].dataset.table || null;
@@ -24,6 +25,7 @@
 
             this.refresh = function () {
                 that.data = [];
+                that.columns = [];
                 if (that.getTable()) {
                     var columns = that.shownData() ? that.shownData() : null;
                     apiService.getTableData(that.getTable(), columns).then(function (result) {
@@ -68,16 +70,16 @@
                     shown:  this.shownData(),
                     hidden: this.hiddenData()
                 };
-                htmlService.getEditForm(article, this.getTable(), config);
+                htmlService.getEditForm(article, this.getTable(), config, that.columns);
                 htmlService.showAlert('Opening form.');
                 window.activeController = this;
             };
 
             this.getCreateForm = function () {
-                console.log(that.columns);
+                // console.log(that.columns);
                 var newArticle = {};
                 for (var i in that.columns) {
-                    console.log([i, that.columns[i].Field]);
+                    // console.log([i, that.columns[i].Field]);
                     if(that.columns[i].Field !== 'id') {
                         newArticle[that.columns[i].Field] = '';
                     } else {
@@ -102,14 +104,13 @@
                         if (i !== '$$hashKey') {
                             if (that.shownData()) {
                                 if (that.shownData().indexOf(i) >= 0 || i === 'id') {
-                                    headers.push(i);
+                                    headers.push(i.replace('_', ' '));
                                 }
                             } else {
-                                headers.push(i);
+                                headers.push(i.replace('_', ' '));
                             }
                         }
                     }
-                    headers.push('');
                 }
                 return headers;
             };

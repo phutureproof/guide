@@ -22,8 +22,14 @@ body {
 }
 
 .panel-heading,
-.modal-title {
-    font-weight: 400;
+.modal-title,
+label {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+label {
+    font-weight: bold;
     text-transform: capitalize;
 }
 
