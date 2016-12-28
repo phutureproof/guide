@@ -41,7 +41,7 @@
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th data-ng-repeat="i in $ctrl.getDataHeaders()">{{i}}</th>
+                            <th data-ng-repeat="i in $ctrl.getDataHeaders()">{{i.replace('_', ' ')}}</th>
                         </tr>
                     </thead>
                     <tbody>

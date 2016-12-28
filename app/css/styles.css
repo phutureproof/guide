@@ -22,14 +22,15 @@ body {
 }
 
 .panel-heading,
-.modal-title,
-label {
-    font-weight: bold;
+.modal-title {
+    font-weight: 300;
     text-transform: capitalize;
 }
 
 label {
-    font-weight: bold;
+    text-transform: capitalize;
+}
+th {
     text-transform: capitalize;
 }
 
