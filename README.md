@@ -1,7 +1,9 @@
 # Guide
+
 Angular Backend Frontend
 
-#Installation
+## Installation
+
 git clone https://github.com/phutureproof/guide.git
 
 or manually [grab the latest release](https://github.com/phutureproof/guide/releases), extract and point your webserver document root to the app folder.
@@ -11,7 +13,8 @@ You will also need to run the supplied angular.sql file on your database, and tw
 After that you should be able to run the application.
 
 
-#Create Editable Regions
+## Create Editable Regions
+
 The idea of this app is to have as much automation as possible while still allowing flexibility to the designer.
 
 You can create a database editing region by adding
